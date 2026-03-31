@@ -4,13 +4,17 @@ from mlx_vlm.prompt_utils import apply_chat_template
 from mlx_vlm.utils import load_config
 from PIL import Image
 # Load the model
-model_path = "mlx-community/Qwen2-VL-2B-Instruct-4bit"
+model_path = "mlx-community/Qwen2.5-VL-7B-Instruct-4bit"
 model, processor = load(model_path)
 config = load_config(model_path)
 
 # Prepare input
-image = [Image.open("/Users/kivanc/Desktop/Reflection/DSC_0030.JPG")] 
-prompt = "Describe this image."
+image_path = "/Users/kivanc/Desktop/Reflection/DSC_0030.JPG"
+img = Image.open(image_path)
+max_size = 512
+img.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
+image = [img]
+prompt = "Describe the lighting, mood, and subject of this image in one short sentence."
 
 # Apply chat template
 formatted_prompt = apply_chat_template(
@@ -19,4 +23,5 @@ formatted_prompt = apply_chat_template(
 
 # Generate output
 output = generate(model, processor, formatted_prompt, image, verbose=False)
+print("\n--- AI Output ---")
 print(output)
