@@ -37,13 +37,13 @@ def parse_ai_output(raw_text: str) -> dict:
         }
 
 
-def format_filename(tags: dict, date_str: str, template: str, casing: str = "pascal") -> str:
+def format_filename(tags: dict, date_str: str, template: str, casing: str = "pascal", separator: str = "_") -> str:
     """
     Injects the parsed tags into the user's template using their preferred casing.
     Example template: "{date}_{subject}_{mood}_{principle}"
     """
     
-    def apply_casing(val: str, style: str) -> str:
+    def apply_casing(val: str, style: str, sep: str ) -> str:
         if not val or val.lower() == "none": 
             return ""
             
@@ -52,7 +52,10 @@ def format_filename(tags: dict, date_str: str, template: str, casing: str = "pas
         if style == "pascal":
             return clean_val.title().replace(" ", "")        # -> RuleOfThirds
         elif style == "snake":
-            return clean_val.lower().replace(" ", "_")       # -> rule_of_thirds
+            if separator == "_":
+                return clean_val.lower().replace(" ", "_")   # -> rule_of_thirds
+            else:
+                return clean_val.lower().replace(" ", "-")       # -> rule-of-thirds
         elif style == "upper":
             return clean_val.upper().replace(" ", "")        # -> RULEOFTHIRDS
         elif style == "lower":
@@ -62,10 +65,10 @@ def format_filename(tags: dict, date_str: str, template: str, casing: str = "pas
 
     formatted_tags = {
         "date": date_str,
-        "subject": apply_casing(tags.get("subject", "Unknown"), casing),
-        "mood": apply_casing(tags.get("mood", "Neutral"), casing),
-        "lighting": apply_casing(tags.get("lighting", "Unknown"), casing),
-        "principle": apply_casing(tags.get("photography_principle", "None"), casing)
+        "subject": apply_casing(tags.get("subject", "Unknown"), casing, separator),
+        "mood": apply_casing(tags.get("mood", "Neutral"), casing, separator),
+        "lighting": apply_casing(tags.get("lighting", "Unknown"), casing, separator),
+        "principle": apply_casing(tags.get("photography_principle", "None"), casing, separator)
     }
 
     try:

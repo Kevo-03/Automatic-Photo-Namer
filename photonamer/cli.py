@@ -84,7 +84,7 @@ def process_photos(
         
         tags = parser.parse_ai_output(raw_ai_text)
         
-        base_name = parser.format_filename(tags, date_str, generated_template, casing)
+        base_name = parser.format_filename(tags, date_str, generated_template, casing, separator)
         
         new_path = utils.get_safe_filepath(folder, base_name, original_ext)
         
