@@ -3,9 +3,9 @@ from pathlib import Path
 from rich import print
 from rich.progress import track
 
-import vision
-import parser
-import utils
+from . import vision
+from . import parser
+from . import utils
 
 app = typer.Typer(help="Autonomous AI Photo Namer")
 
