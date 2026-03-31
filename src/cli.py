@@ -18,25 +18,31 @@ def process_photos(
     fields: str = typer.Option(
         "date, subject, mood, principle", 
         "--fields", "-f",
-        prompt="\n📸 What fields do you want in the filename? (comma-separated)\n[Options: date, subject, mood, lighting, principle]",
+        # 1. Add your custom default text here
+        prompt="\nWhat fields do you want in the filename? (comma-separated)\n[Options: date, subject, mood, lighting, principle] (Default: date, subject, mood, principle)",
+        # 2. Tell Typer to hide its automatic brackets
+        show_default=False, 
         help="Comma-separated list of tags to include."
     ),
     separator: str = typer.Option(
         "_", 
         "--sep", "-s",
-        prompt="\n🔗 What separator should connect the words? (e.g., '_' or '-')",
+        prompt="\nWhat separator should connect the words? (e.g., '_' or '-') (Default: '_')",
+        show_default=False,
         help="Character to separate the fields."
     ),
     casing: str = typer.Option(
         "pascal", 
         "--casing", "-c",
-        prompt="\n🔠 Which casing style? (pascal, snake, upper, lower)",
+        prompt="\nWhich casing style? (pascal, snake, upper, lower) (Default: pascal)",
+        show_default=False,
         help="Text formatting style."
     ),
     dry_run: bool = typer.Option(
         True, 
         "--execute", "-e",
-        prompt="\n🛡️  Is this a safe dry-run? (y/n) [Defaults to True]",
+        prompt="\nIs this a safe dry-run? (Default: Yes)",
+        show_default=False,
         help="Set to False to actually rename the files."
     )
 ):
@@ -61,7 +67,7 @@ def process_photos(
     # Validate their choices
     for field in selected_fields:
         if field not in allowed_fields:
-            print(f"\n[bold red]❌ Error: '{field}' is not a valid option.[/bold red]")
+            print(f"\n[bold red]Error: '{field}' is not a valid option.[/bold red]")
             print(f"[yellow]Please choose from: {', '.join(allowed_fields)}[/yellow]\n")
             raise typer.Exit(code=1)
             
@@ -74,10 +80,10 @@ def process_photos(
     print(f"[dim]Generated Naming Template: {generated_template}[/dim]\n")
     
     if dry_run:
-        print("[bold yellow]⚠️ DRY RUN MODE ACTIVATED. No files will actually be changed.[/bold yellow]\n")
+        print("[bold yellow]DRY RUN MODE ACTIVATED. No files will actually be changed.[/bold yellow]\n")
 
     # 2. Boot up the AI
-    analyzer = vision.VisionAnalyzer()
+    analyzer = vision.ImageAnalyzer()
 
     # 3. The Master Loop
     for img_path in track(images, description="Processing Photos..."):
@@ -85,7 +91,7 @@ def process_photos(
         original_ext = img_path.suffix
         date_str = utils.get_photo_date(img_path)
         
-        raw_ai_text = analyzer.analyze(img_path)
+        raw_ai_text = analyzer.analyze_image(img_path)
         
         tags = parser.parse_ai_output(raw_ai_text)
         
@@ -103,7 +109,7 @@ def process_photos(
             except Exception as e:
                 print(f"[bold red]Failed to rename {img_path.name}: {e}[/bold red]")
 
-    print("\n[bold green]✅ Batch processing complete![/bold green]\n")
+    print("\n[bold green]Processing complete![/bold green]\n")
 
 if __name__ == "__main__":
     app()
