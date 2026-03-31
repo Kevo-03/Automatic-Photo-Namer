@@ -7,35 +7,28 @@ import json
 from pathlib import Path
 
 def clean_json_string(raw_text):
-    """Strips markdown and conversational filler from LLM outputs."""
     text = raw_text.strip()
     
-    # 1. Strip the markdown code block backticks if they exist
     if text.startswith("```json"):
-        text = text[7:] # remove the first 7 characters
+        text = text[7:] 
     elif text.startswith("```"):
         text = text[3:]
         
     if text.endswith("```"):
-        text = text[:-3] # remove the last 3 characters
+        text = text[:-3] 
         
-    # 2. Find the first '{' and the last '}' to cut out conversational filler
     start_idx = text.find('{')
     end_idx = text.rfind('}')
     
     if start_idx != -1 and end_idx != -1:
-        # Slice the string to only include the JSON brackets and everything inside
         return text[start_idx:end_idx+1]
         
-    # Fallback to the stripped text if no brackets are found
     return text.strip()
 
-# Load the model
 model_path = "mlx-community/Qwen2.5-VL-7B-Instruct-4bit"
 model, processor = load(model_path)
 config = load_config(model_path)
 
-# Prepare input
 image_path = "/Users/kivanc/Desktop/Reflection/DSC_1008.JPG"
 og_extension = Path(image_path).suffix
 img = Image.open(image_path)
@@ -56,11 +49,10 @@ Use the following exact JSON schema:
 }
 """
 
-# Apply chat template
 formatted_prompt = apply_chat_template(
     processor, config, prompt, num_images=len(image)
 )
-# Generate output
+
 output = generate(model, processor, formatted_prompt, image, verbose=False)
 
 raw_text = output.text
@@ -75,7 +67,7 @@ try:
     principle = tags.get("photography_principle", "None").title().replace(" ", "")
     
     new_filename = f"{subject}_{mood}_{principle}{og_extension}"
-    print(f"\n✅ Successfully parsed! Proposed filename: {new_filename}")
+    print(f"\nSuccessfully parsed! Proposed filename: {new_filename}")
 
 except json.JSONDecodeError:
-    print(f"\n❌ Error: Failed to parse JSON even after cleaning.\nCleaned Text: {cleaned_text}")
+    print(f"\nError: Failed to parse JSON even after cleaning.\nCleaned Text: {cleaned_text}")

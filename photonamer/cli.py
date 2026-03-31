@@ -66,7 +66,6 @@ def process_photos(
             raise typer.Exit(code=1)
             
     generated_template = separator.join([f"{{{f}}}" for f in selected_fields])
-    # --------------------------------------------
 
     print(f"\n[bold blue]Found {len(images)} images.[/bold blue]")
     print(f"[dim]Generated Naming Template: {generated_template}[/dim]\n")
@@ -85,7 +84,6 @@ def process_photos(
         
         tags = parser.parse_ai_output(raw_ai_text)
         
-        # We pass the generated_template instead of a raw user string
         base_name = parser.format_filename(tags, date_str, generated_template, casing)
         
         new_path = utils.get_safe_filepath(folder, base_name, original_ext)

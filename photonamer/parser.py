@@ -4,7 +4,6 @@ def clean_json_string(raw_text: str) -> str:
     """Strips markdown and conversational filler from LLM outputs."""
     text = raw_text.strip()
     
-    # Strip markdown backticks
     if text.startswith("```json"):
         text = text[7:]
     elif text.startswith("```"):
@@ -13,7 +12,6 @@ def clean_json_string(raw_text: str) -> str:
     if text.endswith("```"):
         text = text[:-3]
         
-    # Isolate the dictionary brackets
     start_idx = text.find('{')
     end_idx = text.rfind('}')
     
@@ -30,8 +28,7 @@ def parse_ai_output(raw_text: str) -> dict:
     try:
         return json.loads(cleaned_text)
     except json.JSONDecodeError:
-        print(f"\n⚠️ Warning: AI hallucinated invalid JSON. Skipping advanced tags.\nRaw text: {cleaned_text}")
-        # Return a safe fallback so the batch process doesn't crash on one bad photo
+        print(f"\nWarning: AI hallucinated invalid JSON. Skipping advanced tags.\nRaw text: {cleaned_text}")
         return {
             "subject": "UnknownSubject",
             "mood": "UnknownMood",
@@ -50,10 +47,8 @@ def format_filename(tags: dict, date_str: str, template: str, casing: str = "pas
         if not val or val.lower() == "none": 
             return ""
             
-        # Strip out any weird punctuation the AI might have added, keep spaces for now
         clean_val = "".join(c for c in val if c.isalnum() or c.isspace())
         
-        # Apply the user's requested style (e.g., "Rule Of Thirds")
         if style == "pascal":
             return clean_val.title().replace(" ", "")        # -> RuleOfThirds
         elif style == "snake":
@@ -65,7 +60,6 @@ def format_filename(tags: dict, date_str: str, template: str, casing: str = "pas
         else:
             return clean_val.replace(" ", "")                # Default fallback
 
-    # 1. Clean and format all extracted tags
     formatted_tags = {
         "date": date_str,
         "subject": apply_casing(tags.get("subject", "Unknown"), casing),
@@ -74,16 +68,13 @@ def format_filename(tags: dict, date_str: str, template: str, casing: str = "pas
         "principle": apply_casing(tags.get("photography_principle", "None"), casing)
     }
 
-    # 2. Inject them into the template string
     try:
-        # This replaces {date}, {subject}, etc., in the user's string
         base_name = template.format(**formatted_tags)
         
-        # Clean up any messy separators (e.g., if a tag was empty and left a double underscore "__")
         base_name = base_name.replace("__", "_").replace("--", "-").strip("_-")
         
         return base_name
         
     except KeyError as e:
-        print(f"\n⚠️ Warning: Invalid template key {e}. Using default format.")
+        print(f"\nWarning: Invalid template key {e}. Using default format.")
         return f"{formatted_tags['date']}_{formatted_tags['subject']}"
