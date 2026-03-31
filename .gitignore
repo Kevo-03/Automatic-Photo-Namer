@@ -9,6 +9,11 @@ venv/
 env/
 .env
 
+# Build and Installation Directories
+*.egg-info/
+build/
+dist/
+
 # =========================
 # macOS Specific
 # =========================
