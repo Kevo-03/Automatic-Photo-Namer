@@ -18,9 +18,7 @@ def process_photos(
     fields: str = typer.Option(
         "date, subject, mood, principle", 
         "--fields", "-f",
-        # 1. Add your custom default text here
         prompt="\nWhat fields do you want in the filename? (comma-separated)\n[Options: date, subject, mood, lighting, principle] (Default: date, subject, mood, principle)",
-        # 2. Tell Typer to hide its automatic brackets
         show_default=False, 
         help="Comma-separated list of tags to include."
     ),
@@ -50,7 +48,6 @@ def process_photos(
     Scans a folder of images, uses local AI to extract visual tags, 
     and renames them according to a custom template.
     """
-    # 1. Gather all valid images
     valid_extensions = {".jpg", ".jpeg", ".png", ".nef"}
     images = [p for p in folder.iterdir() if p.is_file() and p.suffix.lower() in valid_extensions]
 
@@ -58,21 +55,16 @@ def process_photos(
         print(f"[bold red]No valid images found in {folder}[/bold red]")
         raise typer.Exit()
 
-    # --- THE NEW TEMPLATE BUILDER & VALIDATOR ---
     allowed_fields = {"date", "subject", "mood", "lighting", "principle"}
     
-    # Clean up the user's input (e.g., "subject,mood " -> ["subject", "mood"])
     selected_fields = [f.strip().lower() for f in fields.split(",")]
-    
-    # Validate their choices
+   
     for field in selected_fields:
         if field not in allowed_fields:
             print(f"\n[bold red]Error: '{field}' is not a valid option.[/bold red]")
             print(f"[yellow]Please choose from: {', '.join(allowed_fields)}[/yellow]\n")
             raise typer.Exit(code=1)
             
-    # Magically construct the template string! 
-    # e.g., ["subject", "mood"] + "_" -> "{subject}_{mood}"
     generated_template = separator.join([f"{{{f}}}" for f in selected_fields])
     # --------------------------------------------
 
@@ -82,10 +74,8 @@ def process_photos(
     if dry_run:
         print("[bold yellow]DRY RUN MODE ACTIVATED. No files will actually be changed.[/bold yellow]\n")
 
-    # 2. Boot up the AI
     analyzer = vision.ImageAnalyzer()
 
-    # 3. The Master Loop
     for img_path in track(images, description="Processing Photos..."):
         
         original_ext = img_path.suffix
