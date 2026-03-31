@@ -1,4 +1,4 @@
-# 📸 PhotoNamer: Autonomous AI Image File Renamer for Apple Silicon Macs
+# PhotoNamer: Autonomous AI Image File Renamer for Apple Silicon Macs
 
 PhotoNamer is a fast, privacy-first CLI tool that uses local a Vision-Language Model (specifically Qwen2.5-VL) to analyze your photos and automatically rename them based on their visual composition, lighting, and mood. 
 
@@ -16,7 +16,7 @@ Built specifically for Apple Silicon using the MLX framework, it processes heavy
 ## Installation
 
 ### Prerequisites
-* A Mac with an Apple Silicon chip (M1/M2/M3/M4).
+* A Mac with an Apple Silicon chip (M1/M2/M3/M4), at least 16GB of RAM is recommended.
 * Python 3.10 or newer.
 
 ### For Photographers & End-Users (Recommended)
@@ -24,9 +24,8 @@ The safest and easiest way to install PhotoNamer globally is using `pipx`. This 
 
 1. Install `pipx` via Homebrew (if you haven't already):
    ```bash
-   git clone https://github.com/Kevo-03/Automatic-Photo-Namer.git
-   cd Automatic-Photo-Namer
-   pipx install .
+   brew install pipx
+   pipx ensurepath
    ```
 2. Clone this repository and install the app:
    ```bash
@@ -66,4 +65,5 @@ The interactive wizard will guide you through the process:
 
 - **Engine:** Apple mlx-vlm for hardware-accelerated inference.
 -**Model:**  Qwen/Qwen2.5-VL-3B-Instruct for optimal speed-to-accuracy ratio.
--**
+-**Memory Management:** Implements isolated sequential processing. The 5GB AI model loads into unified memory exactly once, and Python's garbage collector destroys individual image tensors post-inference, preventing thermal throttling or RAM overflow during massive batch jobs.
+**CLI Framework:** Built with Typer and Rich for a beautiful, type-safe terminal experience. 
