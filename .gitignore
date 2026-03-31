@@ -1,0 +1,61 @@
+# =========================
+# Python & Environments
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+
+# =========================
+# macOS Specific
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# =========================
+# IDEs & Editors
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# AI Models & Weights
+# =========================
+# Prevents committing massive 5GB+ MLX models if you download them locally
+models/
+*.safetensors
+*.bin
+*.pt
+*.h5
+.huggingface/
+
+# =========================
+# Project Data & Images
+# =========================
+# Prevents committing your personal high-res photos and RAW files
+*.NEF
+*.jpg
+*.jpeg
+*.png
+*.JPG
+*.JPEG
+*.PNG
+
+# Ignore specific input/output directories (uncomment and adjust as needed)
+# input_photos/
+# output_photos/
+# test_images/
+
+# =========================
+# Logs & Outputs
+# =========================
+*.log
