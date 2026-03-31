@@ -24,13 +24,13 @@ The safest and easiest way to install PhotoNamer globally is using `pipx`. This 
 
 1. Install `pipx` via Homebrew (if you haven't already):
    ```bash
-   git clone [https://github.com/Kevo-03/Automatic-Photo-Namer.git](https://github.com/Kevo-03/Automatic-Photo-Namer.git)
+   git clone https://github.com/Kevo-03/Automatic-Photo-Namer.git
    cd Automatic-Photo-Namer
    pipx install .
    ```
 2. Clone this repository and install the app:
    ```bash
-   git clone [https://github.com/Kevo-03/Automatic-Photo-Namer.git](https://github.com/Kevo-03/Automatic-Photo-Namer.git)
+   git clone https://github.com/Kevo-03/Automatic-Photo-Namer.git
    cd Automatic-Photo-Namer
    pipx install .
    ```
@@ -41,12 +41,12 @@ The safest and easiest way to install PhotoNamer globally is using `pipx`. This 
 If you want to modify the source code or contribute, install it in editable mode:
 
 ```bash
-   git clone [https://github.com/Kevo-03/Automatic-Photo-Namer.git](https://github.com/Kevo-03/Automatic-Photo-Namer.git)
-    cd Automatic-Photo-Namer
-    python3 -m venv .venv
-    source .venv/bin/activate
+git clone https://github.com/Kevo-03/Automatic-Photo-Namer.git
+cd Automatic-Photo-Namer
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -e .
-   ```
+```
 
 ## Usage
 
@@ -59,3 +59,11 @@ The interactive wizard will guide you through the process:
 
 1. **Fields:** Choose what information you want in the filename (Options: date, subject, mood, lighting, principle).
 2. **Separator:** Choose how fields are connected (e.g., _ or -).
+3. **Casing Style:** Format the text (pascal, snake, upper, lower).
+4. **Execution:** Confirm if you want a safe dry-run (Preview) or a live execution.
+
+### Architecture Under the Hood
+
+- **Engine:** Apple mlx-vlm for hardware-accelerated inference.
+-**Model:**  Qwen/Qwen2.5-VL-3B-Instruct for optimal speed-to-accuracy ratio.
+-**

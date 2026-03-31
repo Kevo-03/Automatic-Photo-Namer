@@ -1,11 +1,15 @@
-import mlx.core as mx
-from mlx_vlm import load, generate
-from mlx_vlm.prompt_utils import apply_chat_template
-from mlx_vlm.utils import load_config
 from PIL import Image
 
 class ImageAnalyzer:
     def __init__(self):
+        import os
+        
+        os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
+        os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+        
+        from mlx_vlm import load
+        from mlx_vlm.utils import load_config
+
         self.model_path = "mlx-community/Qwen2.5-VL-7B-Instruct-4bit"
         self.model, self.processor = load(self.model_path)
         self.config = load_config(self.model_path)
@@ -23,6 +27,10 @@ class ImageAnalyzer:
         }
         """
     def analyze_image(self, image_path):
+
+        from mlx_vlm import generate
+        from mlx_vlm.prompt_utils import apply_chat_template
+
         img = Image.open(image_path)
         max_size = 512
         img.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
