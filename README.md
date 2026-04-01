@@ -27,11 +27,8 @@ The safest and easiest way to install PhotoNamer globally is using `pipx`. This 
    brew install pipx
    pipx ensurepath
    ```
-2. Clone this repository and install the app:
-   ```bash
-   git clone https://github.com/Kevo-03/Automatic-Photo-Namer.git
-   cd Automatic-Photo-Namer
-   pipx install .
+2. Install the app via `pipx`:
+   ```pipx install git+https://github.com/Kevo-03/Automatic-Photo-Namer.git
    ```
    (You can safely delete the cloned folder after installation!)
 
