@@ -32,7 +32,7 @@ def process_photos(
     casing: str = typer.Option(
         "pascal", 
         "--casing", "-c",
-        prompt="\nWhich casing style? (pascal, snake, upper, lower) (Default: pascal)",
+        prompt="\nWhich casing style? (pascal, snake, kebab, upper, lower) (Default: pascal)",
         show_default=False,
         help="Text formatting style."
     ),
@@ -84,7 +84,7 @@ def process_photos(
         
         tags = parser.parse_ai_output(raw_ai_text)
         
-        base_name = parser.format_filename(tags, date_str, generated_template, casing, separator)
+        base_name = parser.format_filename(tags, date_str, generated_template, casing)
         
         new_path = utils.get_safe_filepath(folder, base_name, original_ext)
         
