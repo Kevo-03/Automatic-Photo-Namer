@@ -59,7 +59,7 @@ The interactive wizard will guide you through the process:
 4. **Execution:** Confirm if you want a safe dry-run (Preview) or a live execution.
 
 ### Dry Run Example
-![Dry Run Example](figures/Example.png)
+![Dry Run Example](figures/figure.png)
 
 
 ### Architecture Under the Hood
