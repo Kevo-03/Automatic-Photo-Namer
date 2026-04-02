@@ -43,22 +43,6 @@ models/
 *.h5
 .huggingface/
 
-# =========================
-# Project Data & Images
-# =========================
-# Prevents committing your personal high-res photos and RAW files
-*.NEF
-*.jpg
-*.jpeg
-*.png
-*.JPG
-*.JPEG
-*.PNG
-
-# Ignore specific input/output directories (uncomment and adjust as needed)
-# input_photos/
-# output_photos/
-# test_images/
 
 # =========================
 # Logs & Outputs
