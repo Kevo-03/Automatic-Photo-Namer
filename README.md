@@ -58,6 +58,10 @@ The interactive wizard will guide you through the process:
 3. **Casing Style:** Format the text (pascal, snake, upper, lower).
 4. **Execution:** Confirm if you want a safe dry-run (Preview) or a live execution.
 
+### Dry Run Example
+![Dry Run Example](figures/Example.png.png)
+
+
 ### Architecture Under the Hood
 
 - **Engine:** Apple mlx-vlm for hardware-accelerated inference.
