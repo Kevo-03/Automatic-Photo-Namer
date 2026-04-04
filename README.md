@@ -1,4 +1,4 @@
-# PhotoNamer: Autonomous AI Image File Renamer for Apple Silicon Macs
+# Photonamer: Autonomous AI Image File Renamer for Apple Silicon Macs
 
 PhotoNamer is a fast, privacy-first CLI tool that uses local a Vision-Language Model (specifically Qwen2.5-VL) to analyze your photos and automatically rename them based on their visual composition, lighting, and mood. 
 
@@ -65,6 +65,6 @@ The interactive wizard will guide you through the process:
 ### Architecture Under the Hood
 
 - **Engine:** Apple mlx-vlm for hardware-accelerated inference.
--**Model:**  Qwen/Qwen2.5-VL-3B-Instruct for optimal speed-to-accuracy ratio.
--**Memory Management:** Implements isolated sequential processing. The 5GB AI model loads into unified memory exactly once, and Python's garbage collector destroys individual image tensors post-inference, preventing thermal throttling or RAM overflow during massive batch jobs.
-**CLI Framework:** Built with Typer and Rich for a beautiful, type-safe terminal experience. 
+- **Model:**  Qwen/Qwen2.5-VL-3B-Instruct for optimal speed-to-accuracy ratio.
+- **Memory Management:** Implements isolated sequential processing. The 5GB AI model loads into unified memory exactly once, and Python's garbage collector destroys individual image tensors post-inference, preventing thermal throttling or RAM overflow during massive batch jobs.
+- **CLI Framework:** Built with Typer and Rich for a beautiful, type-safe terminal experience. 
