@@ -32,6 +32,12 @@ The safest and easiest way to install PhotoNamer globally is using `pipx`. This 
    pipx install photonamer
    ```
 
+### Alternative: pip
+If you're already working inside a virtual environment:
+```bash
+pip install photonamer
+```
+
 ### For Developers
 
 If you want to modify the source code or contribute, install it in editable mode:
@@ -58,8 +64,27 @@ The interactive wizard will guide you through the process:
 3. **Casing Style:** Format the text (pascal, snake, upper, lower).
 4. **Execution:** Confirm if you want a safe dry-run (Preview) or a live execution.
 
+### Running with Flags
+
+You can skip the interactive wizard entirely by passing options as flags. Any flag you provide will not be prompted for—only missing options trigger a prompt.
+
+```bash
+# Skip the wizard completely
+photonamer ./photos --fields "date,subject,mood" --sep _ --casing pascal --execute
+
+# Skip only some prompts (remaining options will still be prompted)
+photonamer ./photos --sep - --casing kebab
+```
+
+| Flag | Short | Options | Default |
+|------|-------|---------|---------|
+| `--fields` | `-f` | `date`, `subject`, `mood`, `lighting`, `principle` | `date, subject, mood, principle` |
+| `--sep` | `-s` | `_`, `-` | `_` |
+| `--casing` | `-c` | `pascal`, `snake`, `kebab`, `upper`, `lower` | `pascal` |
+| `--execute` | `-e` | — | Dry run (preview only) |
+
 ### Dry Run Example
-![Dry Run Example](https://github.com/Kevo-03/Automatic-Photo-Namer/blob/main/figures/figure.png)
+![Dry Run Example](https://raw.githubusercontent.com/Kevo-03/Automatic-Photo-Namer/main/figures/figure.png)
 
 ### Architecture Under the Hood
 
