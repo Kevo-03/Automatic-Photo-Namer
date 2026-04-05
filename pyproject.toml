@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "photonamer"
-version = "0.1.2"
+version = "0.1.3"
 description = "Photonamer: Autonomous photo file renaming tool using local Visual-Language Models"
 readme = "README.md"
 license = "MIT"
