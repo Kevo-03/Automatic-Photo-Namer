@@ -8,6 +8,7 @@ version = "0.1.1"
 description = "Photonamer: Autonomous photo file renaming tool using local Visual-Language Models"
 readme = "README.md"
 license = "MIT"
+license-files = ["LICENSE"]
 
 dependencies = [
     "typer>=0.24.1",
