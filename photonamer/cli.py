@@ -1,4 +1,5 @@
 import typer
+from enum import Enum
 from pathlib import Path
 from rich import print
 from rich.progress import track
@@ -6,6 +7,19 @@ from rich.progress import track
 from . import vision
 from . import parser
 from . import utils
+
+
+class Separator(str, Enum):
+    underscore = "_"
+    hyphen = "-"
+
+
+class Casing(str, Enum):
+    pascal = "pascal"
+    snake = "snake"
+    kebab = "kebab"
+    upper = "upper"
+    lower = "lower"
 
 app = typer.Typer(help="Autonomous AI Photo Namer")
 
@@ -22,17 +36,17 @@ def process_photos(
         show_default=False, 
         help="Comma-separated list of tags to include."
     ),
-    separator: str = typer.Option(
-        "_", 
+    separator: Separator = typer.Option(
+        Separator.underscore, 
         "--sep", "-s",
-        prompt="\nWhat separator should connect the words? (e.g., '_' or '-') (Default: '_')",
+        prompt="\nWhat separator should connect the words?",
         show_default=False,
         help="Character to separate the fields."
     ),
-    casing: str = typer.Option(
-        "pascal", 
+    casing: Casing = typer.Option(
+        Casing.pascal, 
         "--casing", "-c",
-        prompt="\nWhich casing style? (pascal, snake, kebab, upper, lower) (Default: pascal)",
+        prompt="\nWhich casing style?",
         show_default=False,
         help="Text formatting style."
     ),
@@ -64,8 +78,8 @@ def process_photos(
             print(f"\n[bold red]Error: '{field}' is not a valid option.[/bold red]")
             print(f"[yellow]Please choose from: {', '.join(allowed_fields)}[/yellow]\n")
             raise typer.Exit(code=1)
-            
-    generated_template = separator.join([f"{{{f}}}" for f in selected_fields])
+
+    generated_template = separator.value.join([f"{{{f}}}" for f in selected_fields])
 
     print(f"\n[bold blue]Found {len(images)} images.[/bold blue]")
     print(f"[dim]Generated Naming Template: {generated_template}[/dim]\n")
@@ -84,7 +98,7 @@ def process_photos(
         
         tags = parser.parse_ai_output(raw_ai_text)
         
-        base_name = parser.format_filename(tags, date_str, generated_template, casing)
+        base_name = parser.format_filename(tags, date_str, generated_template, casing.value)
         
         new_path = utils.get_safe_filepath(folder, base_name, original_ext)
         
