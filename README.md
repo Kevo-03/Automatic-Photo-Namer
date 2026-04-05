@@ -70,10 +70,10 @@ You can skip the interactive wizard entirely by passing options as flags. Any fl
 
 ```bash
 # Skip the wizard completely
-photonamer ./photos --fields "date,subject,mood" --sep _ --casing pascal --execute
+photonamer --fields "date,subject,mood" --sep _ --casing pascal --execute
 
 # Skip only some prompts (remaining options will still be prompted)
-photonamer ./photos --sep - --casing kebab
+photonamer --sep - --casing kebab
 ```
 
 | Flag | Short | Options | Default |
@@ -81,7 +81,7 @@ photonamer ./photos --sep - --casing kebab
 | `--fields` | `-f` | `date`, `subject`, `mood`, `lighting`, `principle` | `date, subject, mood, principle` |
 | `--sep` | `-s` | `_`, `-` | `_` |
 | `--casing` | `-c` | `pascal`, `snake`, `kebab`, `upper`, `lower` | `pascal` |
-| `--execute` | `-e` | — | Dry run (preview only) |
+| `--dry-run / --execute` | `-d / -e` | — | `--dry-run` (preview only) |
 
 ### Dry Run Example
 ![Dry Run Example](https://raw.githubusercontent.com/Kevo-03/Automatic-Photo-Namer/main/figures/figure.png)

@@ -52,10 +52,11 @@ def process_photos(
     ),
     dry_run: bool = typer.Option(
         True, 
-        "--execute", "-e",
+        "--dry-run/--execute",
+        "-d/-e",
         prompt="\nIs this a safe dry-run? (Default: Yes)",
         show_default=False,
-        help="Set to False to actually rename the files."
+        help="Use --dry-run for preview mode, --execute to rename files."
     )
 ):
     """
