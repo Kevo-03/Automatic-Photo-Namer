@@ -50,6 +50,34 @@ source .venv/bin/activate
 pip install -e .
 ```
 
+### Uninstallation
+
+#### 1. Remove the Package
+
+If you installed with **pipx**:
+```bash
+pipx uninstall photonamer
+```
+
+If you installed with **pip**:
+```bash
+pip uninstall photonamer
+```
+
+#### 2. Remove the Downloaded AI Model
+
+PhotoNamer downloads a ~5 GB model to the Hugging Face cache on first run. Uninstalling the package does **not** delete these cached model files automatically.
+
+To remove **only the PhotoNamer model** while keeping other Hugging Face models intact:
+```bash
+rm -rf ~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-VL-7B-Instruct-4bit
+```
+
+To remove the **entire Hugging Face cache** (only do this if no other apps depend on it):
+```bash
+rm -rf ~/.cache/huggingface
+```
+
 ## Usage
 
 Navigate to any folder containing your photos (.jpg, .jpeg, .png, .nef) and simply run the command:
@@ -57,6 +85,10 @@ Navigate to any folder containing your photos (.jpg, .jpeg, .png, .nef) and simp
 ```bash
 photonamer
 ```
+
+> [!NOTE]
+> **First Run:** On the very first launch, PhotoNamer will download the ~5 GB AI model from Hugging Face. This is a one-time process and may take several minutes depending on your connection. The CLI will prompt you with a message suggesting you create a free [Hugging Face access token](https://huggingface.co/settings/tokens) for faster, authenticated downloads. Subsequent runs will use the cached model instantly.
+
 The interactive wizard will guide you through the process:
 
 1. **Fields:** Choose what information you want in the filename (Options: date, subject, mood, lighting, principle).
