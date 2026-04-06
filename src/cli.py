@@ -32,21 +32,21 @@ def process_photos(
     fields: str = typer.Option(
         "date, subject, mood, principle", 
         "--fields", "-f",
-        prompt="\nWhat fields do you want in the filename? (comma-separated)\n[Options: date, subject, mood, lighting, principle] (Default: date, subject, mood, principle)",
+        prompt="\nWhat fields do you want in the filename? (comma-separated) (Default: date, subject, mood, principle)\n(date, subject, mood, lighting, principle)",
         show_default=False, 
         help="Comma-separated list of tags to include."
     ),
     separator: Separator = typer.Option(
         Separator.underscore, 
         "--sep", "-s",
-        prompt="\nWhat separator should connect the words?",
+        prompt="\nWhat separator should connect the words? (Default: _)",
         show_default=False,
         help="Character to separate the fields."
     ),
     casing: Casing = typer.Option(
         Casing.pascal, 
         "--casing", "-c",
-        prompt="\nWhich casing style?",
+        prompt="\nWhich casing style? (Default: pascal)",
         show_default=False,
         help="Text formatting style."
     ),
